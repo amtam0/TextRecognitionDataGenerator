@@ -175,7 +175,7 @@ class FakeTextDataGenerator(object):
                 background_height, background_width, image_dir
             )
         background_mask = Image.new(
-            "RGB", (background_width, background_height), (255, 255, 255)#https://github.com/Belval/TextRecognitionDataGenerator/issues/251#issue-1131524799
+            "RGB", (background_width, background_height), (0, 0, 0)#https://github.com/Belval/TextRecognitionDataGenerator/issues/251#issue-1131524799
         )
 
         ##############################################################
@@ -184,8 +184,12 @@ class FakeTextDataGenerator(object):
         try:
             resized_img_st = ImageStat.Stat(resized_img, resized_mask.split()[2])
             background_img_st = ImageStat.Stat(background_img)
+            if is_handwritten:
+                resized_img_px_mean = 25
+            else:
+                resized_img_px_mean = sum(resized_img_st.mean[:2]) / 3
 
-            resized_img_px_mean = sum(resized_img_st.mean[:2]) / 3
+#             resized_img_px_mean = sum(resized_img_st.mean[:2]) / 3
             background_img_px_mean = sum(background_img_st.mean) / 3
 
             if abs(resized_img_px_mean - background_img_px_mean) < 15:
