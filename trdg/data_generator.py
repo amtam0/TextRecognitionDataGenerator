@@ -175,7 +175,7 @@ class FakeTextDataGenerator(object):
                 background_height, background_width, image_dir
             )
         background_mask = Image.new(
-            "RGB", (background_width, background_height), (0, 0, 0)
+            "RGB", (background_width, background_height), (255, 255, 255)#https://github.com/Belval/TextRecognitionDataGenerator/issues/251#issue-1131524799
         )
 
         ##############################################################
